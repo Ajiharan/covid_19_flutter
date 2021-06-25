@@ -1,3 +1,4 @@
+import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/SignUp/Background.dart';
 import 'package:covid_project/common/Account.dart';
 import 'package:covid_project/common/RoundedInputFormField.dart';
@@ -106,7 +107,10 @@ class _BodyContainerState extends State<BodyContainer> {
               height: size.height * 0.03,
             ),
             Account(
-              press: () {},
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignInScreen()));
+              },
               login: false,
             )
           ],

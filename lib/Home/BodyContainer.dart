@@ -1,4 +1,5 @@
 import 'package:covid_project/Home/BackGround.dart';
+import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/SignUp/SignUpScreen.dart';
 import 'package:covid_project/colorConstraint.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
@@ -35,7 +36,10 @@ class BodyContainer extends StatelessWidget {
               height: size.height * 0.04,
             ),
             RoundedButton(
-              press: () {},
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignInScreen()));
+              },
               text: 'Login',
             ),
             SizedBox(
