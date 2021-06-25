@@ -1,4 +1,5 @@
 import 'package:covid_project/Home/BackGround.dart';
+import 'package:covid_project/SignUp/SignUpScreen.dart';
 import 'package:covid_project/colorConstraint.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,14 @@ class BodyContainer extends StatelessWidget {
                   color: Color.fromRGBO(2, 68, 22, 1.0), fontSize: 20),
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.04,
             ),
             SvgPicture.asset(
-              "images/s10.svg",
-              height: size.height * 0.45,
+              "images/b6.svg",
+              height: size.height * 0.31,
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.04,
             ),
             RoundedButton(
               press: () {},
@@ -41,7 +42,10 @@ class BodyContainer extends StatelessWidget {
               height: size.height * 0.05,
             ),
             RoundedButton(
-              press: () {},
+              press: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+              },
               text: 'Signup',
               color: PrimaryLightColor,
             )
