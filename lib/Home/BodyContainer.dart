@@ -29,7 +29,7 @@ class BodyContainer extends StatelessWidget {
               height: size.height * 0.04,
             ),
             SvgPicture.asset(
-              "images/b6.svg",
+              "images/c6.svg",
               height: size.height * 0.31,
             ),
             SizedBox(

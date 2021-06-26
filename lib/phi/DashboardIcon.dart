@@ -6,6 +6,7 @@ class DashBoardIcon extends StatelessWidget {
   final number;
   final backgroundColor;
   final circleCorlor;
+  final Function press;
 
   const DashBoardIcon(
       {Key? key,
@@ -13,6 +14,7 @@ class DashBoardIcon extends StatelessWidget {
       required this.info,
       required this.number,
       required this.backgroundColor,
+      required this.press,
       required this.circleCorlor})
       : super(key: key);
 
@@ -20,7 +22,9 @@ class DashBoardIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        press();
+      },
       child: Container(
         width: size.width / 2 - 60,
         height: 170,

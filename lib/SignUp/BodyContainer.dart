@@ -135,7 +135,7 @@ class _BodyContainerState extends State<BodyContainer> {
               height: size.height * 0.03,
             ),
             SvgPicture.asset(
-              "images/b2.svg",
+              "images/c4.svg",
               height: size.height * 0.32,
             ),
             RoundedInputFormField(

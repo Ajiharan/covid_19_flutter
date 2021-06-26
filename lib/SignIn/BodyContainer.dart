@@ -76,23 +76,35 @@ class _BodyContainerState extends State<BodyContainer> {
                   .where('email', isEqualTo: authUser.user!.email)
                   .get()
                   .then((snapshot) {
-                snapshot.docs.forEach((doc) {
-                  if (doc['userlevel'] == 1) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PHIHomeScreen()));
-                  } else if (doc['userlevel'] == 2) {
-                  } else {}
-                });
-                func();
-                _showToast(
-                    message: 'Successfully login!!',
-                    color: Colors.greenAccent,
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ));
+                if (snapshot.docs.length > 0) {
+                  snapshot.docs.forEach((doc) {
+                    if (doc['userlevel'] == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PHIHomeScreen()));
+                    } else if (doc['userlevel'] == 2) {
+                    } else {}
+                  });
+                  func();
+                  _showToast(
+                      message: 'Successfully login!!',
+                      color: Colors.greenAccent,
+                      icon: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ));
+                } else {
+                  FirebaseAuth.instance.signOut();
+                  func();
+                  _showToast(
+                      message: 'Invalid login',
+                      color: Colors.redAccent,
+                      icon: Icon(
+                        Icons.error_outline,
+                        color: Colors.white,
+                      ));
+                }
               }).catchError((onError) {
                 func();
                 _showToast(
@@ -135,7 +147,7 @@ class _BodyContainerState extends State<BodyContainer> {
               height: size.height * 0.03,
             ),
             SvgPicture.asset(
-              "images/b1.svg",
+              "images/c1.svg",
               height: size.height * 0.3,
             ),
             RoundedInputFormField(
