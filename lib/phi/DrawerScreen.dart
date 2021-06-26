@@ -1,5 +1,6 @@
 import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/phi/PhiHomeScreen.dart';
+import 'package:covid_project/phi/division_management/DivisionHomeScreen.dart';
 import 'package:covid_project/phi/user_management/PHIUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,12 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DivisionHomeScreen()));
+            },
             title: Text(
               'Divisional details',
               style: TextStyle(color: Color.fromRGBO(234, 99, 99, 1.0)),

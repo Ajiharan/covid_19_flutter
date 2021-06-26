@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'DashboardIcon.dart';
+import 'division_management/DivisionHomeScreen.dart';
 
 class BodyContainer extends StatelessWidget {
   const BodyContainer({Key? key}) : super(key: key);
@@ -32,8 +33,7 @@ class BodyContainer extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      PHIUserBodyContainer()));
+                                  builder: (context) => DivisionHomeScreen()));
                         }),
                     SizedBox(
                       width: size.width * 0.15,

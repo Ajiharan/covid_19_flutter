@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
 import '../colorConstraint.dart';
-import 'TextFieldContainer.dart';
+import 'TextNewFieldContainer.dart';
 
-class RoundedInputFormField extends StatefulWidget {
+class RoundedInputFormFieldNew extends StatefulWidget {
   final String hintText;
   final IconData icon;
   final onSaved;
   final validator;
   final TextInputType inputType;
-  const RoundedInputFormField({
+  const RoundedInputFormFieldNew({
     Key? key,
     required this.hintText,
     this.icon = Icons.email,
@@ -19,13 +18,14 @@ class RoundedInputFormField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _RoundedInputFormFieldState createState() => _RoundedInputFormFieldState();
+  _RoundedInputFormFieldNewState createState() =>
+      _RoundedInputFormFieldNewState();
 }
 
-class _RoundedInputFormFieldState extends State<RoundedInputFormField> {
+class _RoundedInputFormFieldNewState extends State<RoundedInputFormFieldNew> {
   @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
+    return TextFieldNewContainer(
       child: TextFormField(
         keyboardType: widget.inputType,
         onSaved: (e) {
@@ -38,7 +38,7 @@ class _RoundedInputFormFieldState extends State<RoundedInputFormField> {
         decoration: InputDecoration(
           icon: Icon(
             widget.icon,
-            color: PrimaryColor,
+            color: Colors.deepPurple,
           ),
           hintText: widget.hintText,
           border: InputBorder.none,
