@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'colorConstraint.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,6 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'covid19-Project',
+      theme: ThemeData(
+          primaryColor: PrimaryColor, scaffoldBackgroundColor: Colors.white),
       home: HomeScreen(),
       builder: EasyLoading.init(),
     );
