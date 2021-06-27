@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedInputNewFormField.dart';
+import 'package:covid_project/common/rounded_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../AppBarHeader.dart';
 import '../DrawerScreen.dart';
@@ -14,35 +18,165 @@ class DivisionHomeScreen extends StatefulWidget {
 }
 
 class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
+  GlobalKey<FormState> frmKey = GlobalKey<FormState>();
+  var _totalPopulation;
+  var _totalDeath;
+  var _totalRecovered;
+  late FToast fToast;
+
+  @override
+  _showToast({message, color, icon}) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: color,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          icon,
+          SizedBox(
+            width: 12.0,
+          ),
+          Expanded(
+            child: Text(
+              message,
+              style: TextStyle(color: Colors.white70),
+            ),
+          )
+        ],
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.TOP,
+      toastDuration: Duration(seconds: 2),
+    );
+  }
+
+  void saveCovidData(func) {
+    Map<String, dynamic> userData = {
+      "total": _totalPopulation,
+      "deaths": _totalDeath,
+      "recovered": _totalRecovered,
+      "createdAt": FieldValue.serverTimestamp()
+    };
+    FirebaseFirestore.instance.collection("covid").add(userData).then((value) {
+      _showToast(
+          message: 'Successfully Added!!',
+          color: Colors.greenAccent,
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ));
+      func();
+    }).catchError((onError) {
+      _showToast(
+          message: onError.message,
+          color: Colors.redAccent,
+          icon: Icon(
+            Icons.error_outline,
+            color: Colors.white,
+          ));
+      func();
+    });
+  }
+
   void show() {
     showDialog(
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
             ),
             scrollable: true,
-            title: Text("Add Division details"),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "ADD COVID DETAILS",
+                  style: TextStyle(letterSpacing: 1),
+                ),
+                Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.redAccent),
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )))
+              ],
+            ),
             content: Padding(
               padding: EdgeInsets.all(10),
               child: Form(
+                key: frmKey,
                 child: Column(
                   children: [
                     RoundedInputFormFieldNew(
                       hintText: 'Total Cases count',
-                      onSaved: () {},
+                      onSaved: (totalPopulation) {
+                        _totalPopulation = totalPopulation;
+                      },
+                      validator: (totalPopulation) {
+                        if (totalPopulation.toString().isEmpty) {
+                          return "Field is required";
+                        }
+                        return null;
+                      },
                       icon: Icons.coronavirus_sharp,
                       inputType: TextInputType.number,
                     ),
                     RoundedInputFormFieldNew(
                       hintText: 'Total Deaths count',
-                      onSaved: () {},
+                      onSaved: (totalDeath) {
+                        _totalDeath = totalDeath;
+                      },
+                      inputType: TextInputType.number,
+                      validator: (totalDeath) {
+                        if (totalDeath.toString().isEmpty) {
+                          return "Field is required";
+                        }
+                        return null;
+                      },
                       icon: Icons.report_outlined,
                     ),
                     RoundedInputFormFieldNew(
                       hintText: 'Recovered count',
-                      onSaved: () {},
+                      inputType: TextInputType.number,
+                      onSaved: (totalRecovered) {
+                        _totalRecovered = totalRecovered;
+                      },
+                      validator: (totalRecovered) {
+                        if (totalRecovered.toString().isEmpty) {
+                          return "Field is required";
+                        }
+                        return null;
+                      },
                       icon: Icons.medical_services,
+                    ),
+                    RoundedButton(
+                      text: 'Add Detail',
+                      press: () {
+                        if (frmKey.currentState!.validate()) {
+                          frmKey.currentState!.save();
+                          EasyLoading.show(status: 'Updating data...');
+                          FocusScope.of(context).unfocus();
+                          saveCovidData(() {
+                            EasyLoading.dismiss();
+                            frmKey.currentState!.reset();
+                          });
+                        }
+                      },
                     )
                   ],
                 ),
@@ -51,6 +185,13 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
           );
         },
         context: context);
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
