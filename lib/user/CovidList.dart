@@ -64,26 +64,6 @@ class _CovidListState extends State<CovidList> {
     );
   }
 
-  void deleteRecord(id, func) {
-    FirebaseFirestore.instance
-        .collection('covid')
-        .doc(id)
-        .delete()
-        .then((value) {
-      _showToast(
-        color: Colors.redAccent,
-        message: 'Sucessfully deleted',
-        icon: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-      );
-      func();
-    }).catchError((onError) {
-      print(onError);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -94,14 +74,8 @@ class _CovidListState extends State<CovidList> {
         shadowColor: Colors.black12,
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
-                0.1,
-                0.9
-              ], colors: [
-                Color.fromRGBO(71, 69, 69, 0.8),
-                Color.fromRGBO(14, 14, 14, 0.7019607843137254),
-              ])),
+            borderRadius: BorderRadius.circular(20),
+          ),
           padding: EdgeInsets.all(20),
           child: Container(
             child: Column(
@@ -115,10 +89,13 @@ class _CovidListState extends State<CovidList> {
                         color: Colors.blue,
                         size: 35,
                       ),
+                      SizedBox(
+                        width: size.width * 0.1,
+                      ),
                       Text(
                         'Total Cases : ${widget.total}',
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.blue,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       )
@@ -136,12 +113,15 @@ class _CovidListState extends State<CovidList> {
                         color: Colors.red,
                         size: 35,
                       ),
+                      SizedBox(
+                        width: size.width * 0.1,
+                      ),
                       Text(
                         'Total Deaths : ${widget.deaths}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Colors.red,
                         ),
                       )
                     ],
@@ -158,12 +138,15 @@ class _CovidListState extends State<CovidList> {
                         color: Colors.green,
                         size: 35,
                       ),
+                      SizedBox(
+                        width: size.width * 0.1,
+                      ),
                       Text(
                         'Total Recovered : ${widget.recovered}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Colors.green,
                         ),
                       ),
                     ],
@@ -172,12 +155,6 @@ class _CovidListState extends State<CovidList> {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    deleteRecord(widget.id, () {});
-                  },
-                  child: Text('Delete Record'),
-                )
               ],
             ),
           ),

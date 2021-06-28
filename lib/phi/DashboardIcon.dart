@@ -26,7 +26,7 @@ class DashBoardIcon extends StatelessWidget {
         press();
       },
       child: Container(
-        width: size.width / 2 - 60,
+        width: size.width / 2 - 80,
         height: 170,
         decoration: BoxDecoration(
             boxShadow: [

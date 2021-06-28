@@ -24,7 +24,6 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
   var _totalRecovered;
   late FToast fToast;
 
-  @override
   _showToast({message, color, icon}) {
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
@@ -128,7 +127,7 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
                         _totalPopulation = totalPopulation;
                       },
                       validator: (totalPopulation) {
-                        if (totalPopulation.toString().isEmpty) {
+                        if (totalPopulation.toString().trim().isEmpty) {
                           return "Field is required";
                         }
                         return null;
@@ -143,7 +142,7 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
                       },
                       inputType: TextInputType.number,
                       validator: (totalDeath) {
-                        if (totalDeath.toString().isEmpty) {
+                        if (totalDeath.toString().trim().isEmpty) {
                           return "Field is required";
                         }
                         return null;
@@ -157,7 +156,7 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
                         _totalRecovered = totalRecovered;
                       },
                       validator: (totalRecovered) {
-                        if (totalRecovered.toString().isEmpty) {
+                        if (totalRecovered.toString().trim().isEmpty) {
                           return "Field is required";
                         }
                         return null;
@@ -187,6 +186,7 @@ class _DivisionHomeScreenState extends State<DivisionHomeScreen> {
         context: context);
   }
 
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();

@@ -6,6 +6,7 @@ import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedPasswordField.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
 import 'package:covid_project/phi/PhiHomeScreen.dart';
+import 'package:covid_project/user/UserHomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,12 @@ class _BodyContainerState extends State<BodyContainer> {
                           MaterialPageRoute(
                               builder: (context) => PHIHomeScreen()));
                     } else if (doc['userlevel'] == 2) {
-                    } else {}
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserHomeScreen()));
+                    }
                   });
                   func();
                   _showToast(

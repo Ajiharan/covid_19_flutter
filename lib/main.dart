@@ -18,8 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'covid19-Project',
-      theme: ThemeData(
-          primaryColor: PrimaryColor, scaffoldBackgroundColor: Colors.white),
+      theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       home: HomeScreen(),
       builder: EasyLoading.init(),
     );
