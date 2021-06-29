@@ -69,43 +69,50 @@ class _CovidListState extends State<CovidList> {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.all(10),
-      child: Card(
-        elevation: 12,
-        shadowColor: Colors.black12,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+        ),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: EdgeInsets.all(20),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.coronavirus,
-                        color: Colors.blue,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: size.width * 0.1,
-                      ),
-                      Text(
-                        'Total Cases : ${widget.total}',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      )
-                    ],
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.all(5),
+                height: size.height * 0.1,
+                child: Card(
+                  elevation: 12,
+                  shadowColor: Colors.black12,
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.coronavirus,
+                          color: Colors.blue,
+                          size: 35,
+                        ),
+                        SizedBox(
+                          width: size.width * 0.1,
+                        ),
+                        Text(
+                          'Total Cases : ${widget.total}',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Container(
+              ),
+              Container(
+                padding: EdgeInsets.all(5),
+                height: size.height * 0.1,
+                child: Card(
+                  elevation: 12,
+                  shadowColor: Colors.black12,
                   child: Row(
                     children: [
                       Icon(
@@ -127,10 +134,16 @@ class _CovidListState extends State<CovidList> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Container(
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              Container(
+                padding: EdgeInsets.all(5),
+                height: size.height * 0.1,
+                child: Card(
+                  elevation: 12,
+                  shadowColor: Colors.black12,
                   child: Row(
                     children: [
                       Icon(
@@ -152,11 +165,11 @@ class _CovidListState extends State<CovidList> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+            ],
           ),
         ),
       ),

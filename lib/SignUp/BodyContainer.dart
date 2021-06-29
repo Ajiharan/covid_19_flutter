@@ -65,7 +65,7 @@ class _BodyContainerState extends State<BodyContainer> {
           password: _password,
         )
         .then((authUser) => {
-              saveUserData(func),
+              saveUserData(func, authUser.user),
             })
         .catchError((onError) {
       func();
@@ -79,13 +79,18 @@ class _BodyContainerState extends State<BodyContainer> {
     });
   }
 
-  void saveUserData(func) {
+  void saveUserData(func, user) async {
+    print(user);
     Map<String, dynamic> userData = {
       "username": _username,
       "email": _emailAddress,
-      "userlevel": 0
+      "userlevel": 0,
+      "uid": user!.uid
     };
-    FirebaseFirestore.instance.collection("users").add(userData).then((value) {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .add(userData)
+        .then((value) {
       func();
       _showToast(
           message: 'Successfully registered!!',
