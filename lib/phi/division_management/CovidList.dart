@@ -23,64 +23,30 @@ class CovidList extends StatefulWidget {
 }
 
 class _CovidListState extends State<CovidList> {
-  late FToast fToast;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    fToast = FToast();
-    fToast.init(context);
-  }
-
-  _showToast({message, color, icon}) {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: color,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          icon,
-          SizedBox(
-            width: 12.0,
-          ),
-          Expanded(
-            child: Text(
-              message,
-              style: TextStyle(color: Colors.white70),
-            ),
-          )
-        ],
-      ),
-    );
-
-    fToast.showToast(
-      child: toast,
-      gravity: ToastGravity.TOP,
-      toastDuration: Duration(seconds: 2),
-    );
-  }
-
   void deleteRecord(id, func) {
     FirebaseFirestore.instance
         .collection('covid')
         .doc(id)
         .delete()
         .then((value) {
-      _showToast(
-        color: Colors.redAccent,
-        message: 'Sucessfully deleted',
-        icon: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-      );
+      Fluttertoast.showToast(
+          msg: "Sucessfully Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 15.0);
       func();
     }).catchError((onError) {
-      print(onError);
+      Fluttertoast.showToast(
+          msg: onError.message,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 15.0);
     });
   }
 

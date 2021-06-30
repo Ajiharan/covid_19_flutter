@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/SignIn/Background.dart';
 import 'package:covid_project/SignUp/SignUpScreen.dart';
+import 'package:covid_project/admin/AdminHomeScreen.dart';
 import 'package:covid_project/common/Account.dart';
 import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedPasswordField.dart';
@@ -85,6 +86,10 @@ class _BodyContainerState extends State<BodyContainer> {
                           MaterialPageRoute(
                               builder: (context) => PHIHomeScreen()));
                     } else if (doc['userlevel'] == 2) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AdminHomeScreen()));
                     } else {
                       Navigator.push(
                           context,

@@ -1,6 +1,7 @@
 import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/phi/PhiHomeScreen.dart';
 import 'package:covid_project/phi/division_management/DivisionHomeScreen.dart';
+import 'package:covid_project/phi/task-phi/TaskScreen.dart';
 import 'package:covid_project/phi/user_management/PHIUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,10 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TaskScreen()));
+            },
             title: Text(
               'My Task ',
               style: TextStyle(color: Color.fromRGBO(57, 213, 29, 1.0)),
