@@ -28,6 +28,7 @@ class _UserBodyContainerState extends State<UserBodyContainer> {
                   return UserList(
                       id: data.id,
                       email: data['email'],
+                      uid: data['uid'],
                       username: data['username']);
                 },
               );

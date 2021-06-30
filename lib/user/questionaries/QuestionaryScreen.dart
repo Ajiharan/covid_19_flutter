@@ -86,7 +86,8 @@ class _QuestionaryScreenState extends State<QuestionaryScreen> {
       'isQ1Checked': isQ1Checked,
       'isQ2Checked': isQ2Checked,
       'isQ3Checked': isQ3Checked,
-      'uid': user!.uid
+      'uid': user!.uid,
+      'createdAt': FieldValue.serverTimestamp()
     };
     await FirebaseFirestore.instance
         .collection('questionnaires')
