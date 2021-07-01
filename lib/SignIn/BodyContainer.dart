@@ -82,7 +82,6 @@ class _BodyContainerState extends State<BodyContainer> {
                 if (snapshot.docs.length > 0) {
                   snapshot.docs.forEach((doc) {
                     if (doc['userlevel'] == 1) {
-                      FirebaseAuthService().updateUserName('Admin');
                       Navigator.push(
                           context,
                           MaterialPageRoute(

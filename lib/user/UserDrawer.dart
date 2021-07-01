@@ -1,5 +1,6 @@
 import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/user/chat/ChatHomeScreen.dart';
+import 'package:covid_project/user/suggestion/SuggestionScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,20 @@ class UserDrawer extends StatelessWidget {
             ),
             leading: Icon(
               Icons.chat,
+              color: Color.fromRGBO(104, 24, 147, 1.0),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SuggestionScreen()));
+            },
+            title: Text(
+              'Suggestion',
+              style: TextStyle(color: Color.fromRGBO(104, 24, 147, 1.0)),
+            ),
+            leading: Icon(
+              Icons.feedback,
               color: Color.fromRGBO(104, 24, 147, 1.0),
             ),
           ),

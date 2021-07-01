@@ -43,7 +43,7 @@ class _AwarnessAlertBodyState extends State<AwarnessAlertBody> {
     Map<String, dynamic> data = {
       'message': _message,
       'uid': user!.uid,
-      'userName': user!.displayName,
+      'userName': 'admin',
       'createdAt': FieldValue.serverTimestamp()
     };
     await FirebaseFirestore.instance
