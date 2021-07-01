@@ -7,6 +7,7 @@ import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedPasswordField.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
 import 'package:covid_project/phi/PhiHomeScreen.dart';
+import 'package:covid_project/service/FirebaseAuthService.dart';
 import 'package:covid_project/user/UserHomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,6 +82,7 @@ class _BodyContainerState extends State<BodyContainer> {
                 if (snapshot.docs.length > 0) {
                   snapshot.docs.forEach((doc) {
                     if (doc['userlevel'] == 1) {
+                      FirebaseAuthService().updateUserName('Admin');
                       Navigator.push(
                           context,
                           MaterialPageRoute(

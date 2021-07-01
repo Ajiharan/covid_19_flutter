@@ -6,6 +6,8 @@ import 'package:covid_project/phi/user_management/PHIUserScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'awarness-alert/AwarnessAlertScreen.dart';
+
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({Key? key}) : super(key: key);
 
@@ -70,6 +72,12 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AwarnessAlertScreen()));
+            },
             title: Text(
               'Awarness Alert',
               style: TextStyle(color: Color.fromRGBO(104, 24, 147, 1.0)),

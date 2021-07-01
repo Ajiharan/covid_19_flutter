@@ -5,6 +5,7 @@ import 'package:covid_project/common/Account.dart';
 import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedPasswordField.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
+import 'package:covid_project/service/FirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -66,6 +67,7 @@ class _BodyContainerState extends State<BodyContainer> {
         )
         .then((authUser) => {
               saveUserData(func, authUser.user),
+              FirebaseAuthService().updateUserName(_username)
             })
         .catchError((onError) {
       func();

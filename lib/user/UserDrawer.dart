@@ -1,6 +1,9 @@
 import 'package:covid_project/SignIn/SignInScreen.dart';
+import 'package:covid_project/user/chat/ChatHomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'awrness/UserAwarnessScreen.dart';
 
 class UserDrawer extends StatelessWidget {
   const UserDrawer({Key? key}) : super(key: key);
@@ -23,22 +26,32 @@ class UserDrawer extends StatelessWidget {
                 )),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChatHomeScreen()));
+            },
             title: Text(
-              'Covid 19 Details',
+              'Chat App',
               style: TextStyle(color: Color.fromRGBO(104, 24, 147, 1.0)),
             ),
             leading: Icon(
-              Icons.coronavirus,
+              Icons.chat,
               color: Color.fromRGBO(104, 24, 147, 1.0),
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserAwarnessScreen()));
+            },
             title: Text(
-              'Questionaries',
+              'Awarness Alert',
               style: TextStyle(color: Color.fromRGBO(104, 24, 147, 1.0)),
             ),
             leading: Icon(
-              Icons.question_answer,
+              Icons.notification_important_rounded,
               color: Color.fromRGBO(104, 24, 147, 1.0),
             ),
           ),

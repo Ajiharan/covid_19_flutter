@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'DashboardIcon.dart';
+import 'awarness-alert/AwarnessAlertScreen.dart';
 import 'division_management/DivisionHomeScreen.dart';
 
 class BodyContainer extends StatelessWidget {
@@ -70,8 +71,7 @@ class BodyContainer extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      PHIUserBodyContainer()));
+                                  builder: (context) => AwarnessAlertScreen()));
                         }),
                     SizedBox(
                       width: size.width * 0.15,

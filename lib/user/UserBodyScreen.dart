@@ -29,7 +29,6 @@ class _BodyContainerState extends State<BodyContainer> {
                     color: Colors.purple, fontWeight: FontWeight.bold),
               ),
               Container(
-                height: size.height * 0.38,
                 child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('covid')
@@ -40,17 +39,24 @@ class _BodyContainerState extends State<BodyContainer> {
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     return !snapshot.hasData
                         ? Center(child: CircularProgressIndicator())
-                        : ListView.builder(
-                            itemCount: snapshot.data.docs.length,
-                            itemBuilder: (context, index) {
-                              DocumentSnapshot data = snapshot.data.docs[index];
-                              return CovidList(
-                                  id: data.id,
-                                  deaths: data['deaths'],
-                                  createdAt: data['createdAt'],
-                                  total: data['total'],
-                                  recovered: data['recovered']);
-                            },
+                        : Container(
+                            height: snapshot.data.docs.length > 0
+                                ? size.height * 0.38
+                                : size.height * 0.1,
+                            child: ListView.builder(
+                              itemCount: snapshot.data.docs.length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot data =
+                                    snapshot.data.docs[index];
+
+                                return CovidList(
+                                    id: data.id,
+                                    deaths: data['deaths'],
+                                    createdAt: data['createdAt'],
+                                    total: data['total'],
+                                    recovered: data['recovered']);
+                              },
+                            ),
                           );
                   },
                 ),
