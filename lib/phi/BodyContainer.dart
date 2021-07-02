@@ -1,8 +1,8 @@
+import 'package:covid_project/phi/suggestion/SuggestionScreen.dart';
 import 'package:covid_project/phi/task-phi/TaskScreen.dart';
 import 'package:covid_project/phi/user_management/PHIUserScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'DashboardIcon.dart';
 import 'awarness-alert/AwarnessAlertScreen.dart';
 import 'division_management/DivisionHomeScreen.dart';
@@ -87,8 +87,7 @@ class BodyContainer extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      PHIUserBodyContainer()));
+                                  builder: (context) => SuggestionScreen()));
                         })
                   ],
                 )),
@@ -120,11 +119,11 @@ class BodyContainer extends StatelessWidget {
                             Color.fromRGBO(82, 72, 72, 1.0).withOpacity(0.8),
                         circleCorlor: Color.fromRGBO(210, 10, 27, 1.0),
                         press: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PHIUserBodyContainer()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             PHIUserBodyContainer()));
                         })
                   ],
                 ))
