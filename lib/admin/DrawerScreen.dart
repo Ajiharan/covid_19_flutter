@@ -1,5 +1,6 @@
 import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/admin/task-management/TaskHomeScreen.dart';
+import 'package:covid_project/admin/user-details/UserDetailsScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class DrawerScreen extends StatelessWidget {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text('Admin'),
-              accountEmail: Text('Admin@gmail.com'),
+              accountName: Text('SuperAdmin'),
+              accountEmail: Text('SuperAdmin@gmail.com'),
               currentAccountPicture: CircleAvatar(
                 onBackgroundImageError: (err, e) {},
                 backgroundImage: NetworkImage(
@@ -35,6 +36,10 @@ class DrawerScreen extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => UserDetailsScreen()));
+            },
             title: Text(
               'User Details',
               style: TextStyle(color: Color.fromRGBO(51, 118, 234, 1.0)),

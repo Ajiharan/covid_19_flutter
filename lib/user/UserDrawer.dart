@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/user/chat/ChatHomeScreen.dart';
 import 'package:covid_project/user/suggestion/SuggestionScreen.dart';
@@ -9,6 +10,14 @@ import 'awrness/UserAwarnessScreen.dart';
 class UserDrawer extends StatelessWidget {
   const UserDrawer({Key? key}) : super(key: key);
 
+  getEmail() {
+    return FirebaseAuth.instance.currentUser!.email;
+  }
+
+  getDisplayName() {
+    return FirebaseAuth.instance.currentUser!.displayName ?? 'user';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,8 +27,8 @@ class UserDrawer extends StatelessWidget {
           Container(
             color: Colors.blueAccent,
             child: UserAccountsDrawerHeader(
-                accountName: Text('Admin'),
-                accountEmail: Text('Admin@gmail.com'),
+                accountName: Text('${getDisplayName()}'),
+                accountEmail: Text('${getEmail()}'),
                 currentAccountPicture: CircleAvatar(
                   onBackgroundImageError: (err, e) {},
                   backgroundImage: NetworkImage(

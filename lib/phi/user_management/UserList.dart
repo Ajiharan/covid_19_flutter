@@ -37,14 +37,8 @@ class _UserListState extends State<UserList> {
           shadowColor: Colors.black12,
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
-                  0.1,
-                  0.9
-                ], colors: [
-                  Color.fromRGBO(45, 109, 206, 0.8),
-                  Color.fromRGBO(46, 119, 137, 0.7019607843137254),
-                ])),
+              borderRadius: BorderRadius.circular(10),
+            ),
             padding: EdgeInsets.all(20),
             child: Row(
               children: [
@@ -58,7 +52,7 @@ class _UserListState extends State<UserList> {
                           children: [
                             Icon(
                               Icons.verified,
-                              color: Colors.white,
+                              color: Colors.black54,
                             ),
                             SizedBox(
                               width: 15,
@@ -66,7 +60,7 @@ class _UserListState extends State<UserList> {
                             Text(
                               widget.id,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black54,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -91,7 +85,7 @@ class _UserListState extends State<UserList> {
                             Text(
                               widget.username,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black54,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -101,7 +95,7 @@ class _UserListState extends State<UserList> {
                             Text(
                               widget.email,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.black54,
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold),
                             )

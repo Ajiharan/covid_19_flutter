@@ -1,4 +1,5 @@
 import 'package:covid_project/admin/task-management/TaskHomeScreen.dart';
+import 'package:covid_project/admin/user-details/UserDetailsScreen.dart';
 import 'package:covid_project/phi/DashboardIcon.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,12 @@ class _BodyContainerState extends State<BodyContainer> {
                         backgroundColor:
                             Color.fromRGBO(56, 147, 70, 1.0).withOpacity(0.8),
                         circleCorlor: Color.fromRGBO(252, 224, 62, 1.0),
-                        press: () {})
+                        press: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UserDetailsScreen()));
+                        })
                   ],
                 )),
           ],

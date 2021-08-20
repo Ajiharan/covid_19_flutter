@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/SignIn/Background.dart';
+import 'package:covid_project/SignIn/SignInScreen.dart';
 import 'package:covid_project/SignUp/SignUpScreen.dart';
 import 'package:covid_project/admin/AdminHomeScreen.dart';
 import 'package:covid_project/colorConstraint.dart';
@@ -7,7 +8,6 @@ import 'package:covid_project/common/Account.dart';
 import 'package:covid_project/common/RoundedInputFormField.dart';
 import 'package:covid_project/common/RoundedPasswordField.dart';
 import 'package:covid_project/common/rounded_buttons.dart';
-import 'package:covid_project/forgot_password/ForgotPassword.dart';
 import 'package:covid_project/phi/PhiHomeScreen.dart';
 import 'package:covid_project/service/FirebaseAuthService.dart';
 import 'package:covid_project/user/UserHomeScreen.dart';
@@ -27,7 +27,7 @@ class BodyContainer extends StatefulWidget {
 
 class _BodyContainerState extends State<BodyContainer> {
   var _emailAddress;
-  var _password;
+
   var fToast;
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
@@ -73,79 +73,6 @@ class _BodyContainerState extends State<BodyContainer> {
     return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
-  void signIn(BuildContext context, func) async {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-          email: _emailAddress.toString().trim(),
-          password: _password.toString().trim(),
-        )
-        .then((authUser) => {
-              FirebaseFirestore.instance
-                  .collection('users')
-                  .where('email', isEqualTo: authUser.user!.email)
-                  .get()
-                  .then((snapshot) {
-                if (snapshot.docs.length > 0) {
-                  snapshot.docs.forEach((doc) {
-                    if (doc['userlevel'] == 1) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PHIHomeScreen()));
-                    } else if (doc['userlevel'] == 2) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AdminHomeScreen()));
-                    } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserHomeScreen()));
-                    }
-                  });
-                  func();
-                  _showToast(
-                      message: 'Successfully login!!',
-                      color: Colors.greenAccent,
-                      icon: Icon(
-                        Icons.check,
-                        color: Colors.white,
-                      ));
-                } else {
-                  FirebaseAuth.instance.signOut();
-                  func();
-                  _showToast(
-                      message: 'Invalid login',
-                      color: Colors.redAccent,
-                      icon: Icon(
-                        Icons.error_outline,
-                        color: Colors.white,
-                      ));
-                }
-              }).catchError((onError) {
-                func();
-                _showToast(
-                    message: onError.message,
-                    color: Colors.redAccent,
-                    icon: Icon(
-                      Icons.error_outline,
-                      color: Colors.white,
-                    ));
-              }),
-            })
-        .catchError((onError) {
-      func();
-      _showToast(
-          message: onError.message,
-          color: Colors.redAccent,
-          icon: Icon(
-            Icons.error_outline,
-            color: Colors.white,
-          ));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -157,7 +84,7 @@ class _BodyContainerState extends State<BodyContainer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "SIGNIN",
+              "Forgot Password",
               style: TextStyle(
                   fontSize: 20, color: Color.fromRGBO(4, 78, 37, 1.0)),
             ),
@@ -183,52 +110,32 @@ class _BodyContainerState extends State<BodyContainer> {
                 onSaved: (emailAddress) {
                   _emailAddress = emailAddress;
                 }),
-            RoundedPasswordFormField(
-              onSaved: (password) {
-                _password = password;
-              },
-              validator: (password) {
-                if (password.toString().trim().isEmpty) {
-                  return 'password is required';
-                }
-                return null;
-              },
-            ),
             RoundedButton(
-                text: 'SignIn',
-                press: () {
+                text: 'Send Email',
+                press: () async {
                   if (loginFormKey.currentState!.validate()) {
                     loginFormKey.currentState!.save();
-                    EasyLoading.show(status: 'loading...');
-                    FocusScope.of(context).unfocus();
-                    signIn(context, () {
-                      loginFormKey.currentState!.reset();
-                      EasyLoading.dismiss();
-                    });
+                    // EasyLoading.show(status: 'loading...');
+                    // FocusScope.of(context).unfocus();
+                    // EasyLoading.dismiss();
+                    await sendPasswordResetEmail(
+                        _emailAddress.toString().trim());
+                    _showToast(
+                        message: 'email verification send sucessfully',
+                        color: Colors.greenAccent,
+                        icon: Icon(
+                          Icons.check,
+                          color: Colors.white,
+                        ));
                   }
                 }),
-            SizedBox(
-              height: size.height * 0.03,
-            ),
-            Account(
-              press: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUpScreen()));
-              },
-              login: true,
-            ),
-            SizedBox(
-              height: size.height * 0.03,
-            ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignInScreen()));
               },
               child: Text(
-                "forgot password ?",
+                "back to login",
                 style: TextStyle(
                   color: PrimaryColor,
                   fontWeight: FontWeight.bold,
