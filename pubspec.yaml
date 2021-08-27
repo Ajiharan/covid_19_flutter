@@ -38,6 +38,8 @@ dependencies:
   firebase_storage: ^8.1.0
   file_picker: ^3.0.2+2
   toast: ^0.1.5
+  flutter_local_notifications: ^8.0.0
+  firebase_messaging: ^10.0.4
 
 dev_dependencies:
   flutter_test:

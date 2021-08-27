@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/service/FirebaseAuthService.dart';
 import 'package:flutter/material.dart';
+import '../../common/cloud_messaging.dart' as CloudMessaging;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart' as http;
 
 class AwarnessAlertBody extends StatefulWidget {
   final bool isAdmin;
@@ -37,6 +42,50 @@ class _AwarnessAlertBodyState extends State<AwarnessAlertBody> {
     });
   }
 
+  String constructFCMPayload(String message) {
+    return jsonEncode({
+      'data': {
+        'via': 'FlutterFire Cloud Messaging!!!',
+        'count': message,
+      },
+      'notification': {
+        'title': 'Hello FlutterFire!',
+        'body': 'This notification was created via FCM!',
+      },
+    });
+  }
+
+  Future<void> sendPushMessage(message) async {
+    try {
+      await http.post(
+        Uri.parse('https://api.rnfirebase.io/messaging/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: constructFCMPayload(message),
+      );
+      print('FCM request for device sent!');
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void updateNotification(_message) {
+    CloudMessaging.flutterLocalNotificationsPlugin.show(
+        0,
+        "Admin Notification",
+        _message,
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+          CloudMessaging.channel.id,
+          CloudMessaging.channel.name,
+          CloudMessaging.channel.description,
+          importance: Importance.high,
+          color: Colors.blue,
+          playSound: true,
+        )));
+  }
+
   void addAdminMessage(func) async {
     var user = await FirebaseAuthService().checkAuth();
     print(user);
@@ -51,6 +100,7 @@ class _AwarnessAlertBodyState extends State<AwarnessAlertBody> {
         .add(data)
         .then((value) {
       func();
+      sendPushMessage(_message);
     }).catchError((onError) {
       func();
       print(onError.message);
