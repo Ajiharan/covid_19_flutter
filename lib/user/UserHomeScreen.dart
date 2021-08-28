@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/user/AppBarHeader.dart';
 import 'package:covid_project/user/UserDrawer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'UserBodyScreen.dart';
 import '../common/cloud_messaging.dart' as CloudMessaging;
@@ -14,8 +16,39 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
+  Future<void> getToken() async {
+    try {
+      var newToken = await FirebaseMessaging.instance.getToken();
+      print('newToken ${newToken}');
+
+      await FirebaseFirestore.instance
+          .collection('message_tokens')
+          .where('token', isEqualTo: newToken)
+          .get()
+          .then((QuerySnapshot querySnapshot) async {
+        if (querySnapshot.docs.length == 0) {
+          try {
+            Map<String, dynamic> map = {
+              'token': newToken,
+              'createdAt': FieldValue.serverTimestamp()
+            };
+            var result = await FirebaseFirestore.instance
+                .collection('message_tokens')
+                .add(map);
+            print('results : $result');
+          } catch (e) {
+            print('Exception $e');
+          }
+        }
+      });
+    } catch (err) {
+      print('Exception $err');
+    }
+  }
+
   @override
   void initState() {
+    getToken();
     super.initState();
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;

@@ -15,7 +15,9 @@ class UserDrawer extends StatelessWidget {
   }
 
   getDisplayName() {
-    return FirebaseAuth.instance.currentUser!.displayName ?? 'user';
+    return FirebaseAuth.instance.currentUser!.displayName != null
+        ? FirebaseAuth.instance.currentUser!.displayName
+        : 'user';
   }
 
   @override

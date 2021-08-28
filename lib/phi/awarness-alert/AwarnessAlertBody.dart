@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:covid_project/service/FirebaseAuthService.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import '../../common/cloud_messaging.dart' as CloudMessaging;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -49,16 +50,17 @@ class _AwarnessAlertBodyState extends State<AwarnessAlertBody> {
         'count': message,
       },
       'notification': {
-        'title': 'Hello FlutterFire!',
-        'body': 'This notification was created via FCM!',
+        'title': 'Admin bot!',
+        'body': message,
       },
     });
   }
 
   Future<void> sendPushMessage(message) async {
+    print('func_called $message');
     try {
       await http.post(
-        Uri.parse('https://api.rnfirebase.io/messaging/send'),
+        Uri.parse('https://ancient-falls-67636.herokuapp.com/admin/send'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -66,25 +68,25 @@ class _AwarnessAlertBodyState extends State<AwarnessAlertBody> {
       );
       print('FCM request for device sent!');
     } catch (e) {
-      print(e);
+      print('exception $e');
     }
   }
 
-  void updateNotification(_message) {
-    CloudMessaging.flutterLocalNotificationsPlugin.show(
-        0,
-        "Admin Notification",
-        _message,
-        NotificationDetails(
-            android: AndroidNotificationDetails(
-          CloudMessaging.channel.id,
-          CloudMessaging.channel.name,
-          CloudMessaging.channel.description,
-          importance: Importance.high,
-          color: Colors.blue,
-          playSound: true,
-        )));
-  }
+  // void updateNotification(_message) {
+  //   CloudMessaging.flutterLocalNotificationsPlugin.show(
+  //       0,
+  //       "Admin Notification",
+  //       _message,
+  //       NotificationDetails(
+  //           android: AndroidNotificationDetails(
+  //         CloudMessaging.channel.id,
+  //         CloudMessaging.channel.name,
+  //         CloudMessaging.channel.description,
+  //         importance: Importance.high,
+  //         color: Colors.blue,
+  //         playSound: true,
+  //       )));
+  // }
 
   void addAdminMessage(func) async {
     var user = await FirebaseAuthService().checkAuth();
